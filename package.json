@@ -1,0 +1,12 @@
+{
+  "name": "nvrrecorder",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/TimBailey-pnk/nvrrecorder",
+  "author": "Tim Bailey <tim.bailey@noknow.nz>",
+  "license": "MIT",
+  "dependencies": {
+    "fluent-ffmpeg": "2.1.2",
+    "luxon": "1.25.0"
+  }
+}
