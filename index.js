@@ -1,4 +1,5 @@
-const rootFolder = '/home/tim/projects/personal/nvrrecorder/video'
+// const rootFolder = '/home/tim/projects/personal/nvrrecorder/video'
+const rootFolder = '/video'
 
 // Ensure date based folders exist
 const fs = require('fs')
@@ -28,7 +29,7 @@ async function videoConsumer (camera) {
   const command = ffmpeg(`rtsp://admin:Milly%20Lola%20810@192.168.1.2${camera.toString().padStart(2, '0')}:554/Streaming/Channels/101`)
     .noAudio()
     .videoCodec('copy')
-    .output(`${rootFolder}/camera${camera.toString().padStart(2, '0')}/%Y/%m/%d/recording_%H:%M:%S.mp4`)
+    .output(`${rootFolder}/camera${camera.toString().padStart(2, '0')}/%Y/%m/%d/recording_%Y-%m-%dT%H:%M:%S.mp4`)
     .outputFormat('segment')
     .outputOptions([
       '-strftime 1',
@@ -75,17 +76,19 @@ async function getFiles (dir) {
 
 async function fileCheck () {
   const files = await getFiles(rootFolder)
-  console.log(`Found ${files.length} videos the check`)
+  console.log(`Found ${files.length} videos to check`)
   files.forEach(path => {
-    const datePart = basename(path, extname(path)).substring(7)
-    const age = DateTime.fromISO(datePart).diffNow().as('hours')
+    const datePart = basename(path, extname(path)).substring(10)
+    console.log('datepart', basename(path, extname(path)), datePart)
+    const age = DateTime.fromISO(datePart, {zone: 'utc'}).diffNow().as('days')
+    console.log('age', age)
     if (age < -5) {
       console.log('deleting file ', datePart, age)
       fs.unlinkSync(path)
     }
   })
 
-  setTimeout(fileCheck, 1000 * 10 * 1)
+  setTimeout(fileCheck, 1000 * 60 * 1)
 }
 
-setTimeout(fileCheck, 1000 * 10 * 1)
+setTimeout(fileCheck, 1000 * 60 * 1)

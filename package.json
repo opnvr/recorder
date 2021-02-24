@@ -2,6 +2,10 @@
   "name": "nvrrecorder",
   "version": "1.0.0",
   "main": "index.js",
+  "scripts": {
+    "docker:build": "docker build -t ghcr.io/timbailey-pnk/nvrrecorder .",
+    "docker:push": "docker push ghcr.io/timbailey-pnk/nvrrecorder"
+  },
   "repository": "https://github.com/TimBailey-pnk/nvrrecorder",
   "author": "Tim Bailey <tim.bailey@noknow.nz>",
   "license": "MIT",
