@@ -9,6 +9,8 @@ COPY package*.json yarn.lock ./
 RUN yarn install
 COPY . .
 
+RUN apk add --no-cache tzdata
+
 RUN mkdir -p /video
 
 CMD [ "node", "index.js" ]

@@ -80,7 +80,7 @@ async function fileCheck () {
   files.forEach(path => {
     const datePart = basename(path, extname(path)).substring(10)
     console.log('datepart', basename(path, extname(path)), datePart)
-    const age = DateTime.fromISO(datePart, {zone: 'utc'}).diffNow().as('days')
+    const age = DateTime.fromISO(datePart).diffNow().as('days')
     console.log('age', age)
     if (age < -5) {
       console.log('deleting file ', datePart, age)
