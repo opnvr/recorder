@@ -92,3 +92,40 @@ async function fileCheck () {
 }
 
 setTimeout(fileCheck, 1000 * 60 * 1)
+
+// remove empty folders once a day
+const fsPromises = require('fs').promises
+const path = require('path')
+
+async function removeEmptyDirectories (directory) {
+  // lstat does not follow symlinks (in contrast to stat)
+  const fileStats = await fsPromises.lstat(directory)
+  if (!fileStats.isDirectory()) {
+    return
+  }
+  let fileNames = await fsPromises.readdir(directory)
+  if (fileNames.length > 0) {
+    const recursiveRemovalPromises = fileNames.map(
+            (fileName) => removeEmptyDirectories(path.join(directory, fileName))
+        )
+    await Promise.all(recursiveRemovalPromises)
+
+        // re-evaluate fileNames; after deleting subdirectory
+        // we may have parent directory empty now
+    fileNames = await fsPromises.readdir(directory)
+  }
+
+  if (fileNames.length === 0) {
+    console.log('Removing: ', directory)
+    await fsPromises.rmdir(directory)
+  }
+}
+
+async function doRemoveEmptyFolders () {
+  console.log('removeEmptyFolders')
+  await removeEmptyDirectories(rootFolder)
+
+  setTimeout(doRemoveEmptyFolders, 1000 * 60 * 350)
+}
+
+setTimeout(doRemoveEmptyFolders, 1000 * 60)
