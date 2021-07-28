@@ -11,6 +11,10 @@
   "license": "MIT",
   "dependencies": {
     "fluent-ffmpeg": "2.1.2",
-    "luxon": "1.25.0"
+    "joi": "^17.4.1",
+    "loglevel": "^1.7.1",
+    "loglevel-plugin-prefix": "^0.8.4",
+    "luxon": "1.25.0",
+    "yaml": "^1.10.2"
   }
 }
