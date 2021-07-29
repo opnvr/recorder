@@ -19,13 +19,13 @@ cameras:
       ipAddress: 192.168.1.207
   - RTSP:
       id: Cam08
-      ipAddress: 192.168.1.208                                    
+      ipAddress: 192.168.1.208
   - RTSP:
       id: Cam09
-      ipAddress: 192.168.1.209  
+      ipAddress: 192.168.1.209
 
 logging:
-  level: DEBUG
+  level: debug
 
 output:
   rootFolder: '/home/tim/projects/personal/nvrrecorder/video'

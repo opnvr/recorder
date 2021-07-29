@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "standard": "standard --fix",
     "docker:build": "docker build -t ghcr.io/timbailey-pnk/nvrrecorder .",
     "docker:push": "docker push ghcr.io/timbailey-pnk/nvrrecorder"
   },
@@ -15,6 +16,7 @@
     "loglevel": "^1.7.1",
     "loglevel-plugin-prefix": "^0.8.4",
     "luxon": "1.25.0",
+    "standard": "^16.0.3",
     "yaml": "^1.10.2"
   }
 }
