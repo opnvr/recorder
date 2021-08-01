@@ -1,18 +1,30 @@
-const log = require('loglevel').getLogger('retention')
+const log = require('loglevel').getLogger('simpleretention')
 const { resolve, basename, extname } = require('path')
 const { readdir, lstat, rmdir } = require('fs').promises
 const { unlinkSync } = require('fs')
 const { DateTime, Duration } = require('luxon')
 const path = require('path')
-const config = require('./config')
+const joi = require('joi')
 
 const FILEAGEINTERVAL = 1000 * 60 * 1
 const EMPTYFOLDERINTERVAL = 1000 * 60 * 350
 
-const factory = () => {
+const schema = joi.object({
+  type: joi.string(),
+  duration: joi.string().isoDuration().default('P1D') // Default to 1 day
+})
+
+const factory = (config, itemConfig) => {
   log.debug('Create')
 
-  const maxAge = Duration.fromISO(config.output.retention).as('seconds')
+  const { value: retentionConfig, error } = schema.validate(itemConfig)
+  if (error) {
+    throw new Error('Invalid configuration for simpleretention, ' + error.message)
+  }
+
+  log.debug('Loaded config', retentionConfig)
+
+  const maxAge = Duration.fromISO(retentionConfig.duration).as('seconds')
 
   return {
     start
@@ -83,7 +95,7 @@ const factory = () => {
 
   async function doRemoveEmptyFolders () {
     log.debug('removeEmptyFolders')
-    await removeEmptyDirectories(config.output.rootFolder)
+    await removeEmptyDirectories(itemConfig.output.rootFolder)
 
     setTimeout(doRemoveEmptyFolders, EMPTYFOLDERINTERVAL)
   }

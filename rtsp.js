@@ -1,14 +1,32 @@
 
 const ffmpeg = require('fluent-ffmpeg')
-const config = require('./config')
 const { DateTime } = require('luxon')
 const { mkdir } = require('fs').promises
+const joi = require('joi')
 
 const CREATEFOLDERSINTERVAL = 1000 * 60 * 30 // 30 mins
 
-const factory = ({ id, ipAddress, authentication }) => {
-  const log = require('loglevel').getLogger('recorder-' + id)
+const schema = joi.object({
+  type: joi.string(),
+  id: joi.string().required(),
+  ipAddress: joi.string().ip().required(),
+  authentication: joi.object({
+    enable: joi.boolean().default(true),
+    user: joi.string().required(),
+    pass: joi.string().required()
+  })
+})
+
+const factory = (config, itemConfig) => {
+  const log = require('loglevel').getLogger('rtsp-' + itemConfig.id)
   log.debug('Create')
+
+  const { value: rtspConfig, error } = schema.validate(itemConfig)
+  if (error) {
+    throw new Error('Invalid configuration for simpleretention, ' + error.message)
+  }
+
+  log.debug('Loaded config', rtspConfig)
 
   return {
     start
@@ -16,13 +34,13 @@ const factory = ({ id, ipAddress, authentication }) => {
 
   async function folderCheck () {
     let date = DateTime.local()
-    let baseFolder = `${config.output.rootFolder}/${id}/${date.toFormat('yyyy/MM/dd')}`
+    let baseFolder = `${config.output.rootFolder}/${rtspConfig.id}/${date.toFormat('yyyy/MM/dd')}`
     console.log('ensure folder', baseFolder)
     await mkdir(baseFolder, { recursive: true })
 
     if (date.hour >= 22) {
       date = date.plus({ day: 1 })
-      baseFolder = `${config.output.rootFolder}/${id}/${date.toFormat('yyyy/MM/dd')}`
+      baseFolder = `${config.output.rootFolder}/${rtspConfig.id}/${date.toFormat('yyyy/MM/dd')}`
       console.log('ensure folder (10pm)', baseFolder)
       await mkdir(baseFolder, { recursive: true })
     }
@@ -34,10 +52,10 @@ const factory = ({ id, ipAddress, authentication }) => {
     setTimeout(() => folderCheck(), CREATEFOLDERSINTERVAL)
 
     const camUrl = new URL('rtsp://camera:554/Streaming/Channels/101')
-    camUrl.hostname = ipAddress
-    if (authentication) {
-      camUrl.username = authentication.user
-      camUrl.password = authentication.pass
+    camUrl.hostname = rtspConfig.ipAddress
+    if (rtspConfig.authentication && rtspConfig.authentication.enable) {
+      camUrl.username = rtspConfig.authentication.user
+      camUrl.password = rtspConfig.authentication.pass
     }
 
     const command = ffmpeg()
@@ -45,7 +63,7 @@ const factory = ({ id, ipAddress, authentication }) => {
       .input(camUrl.href)
       .audioCodec('copy')
       .videoCodec('copy')
-      .output(`${config.output.rootFolder}/${id}/%Y/%m/%d/recording_%Y-%m-%dT%H:%M:%S.mp4`)
+      .output(`${config.output.rootFolder}/${rtspConfig.id}/%Y/%m/%d/recording_%Y-%m-%dT%H:%M:%S.mp4`)
       .outputFormat('segment')
       .outputOptions([
         '-strftime 1',
@@ -63,7 +81,7 @@ const factory = ({ id, ipAddress, authentication }) => {
         log.error('Failed to output stream', err)
       })
       .on('end', function () {
-        log.warn('Stream ended', id)
+        log.warn('Stream ended', rtspConfig.id)
       })
 
     command.run()

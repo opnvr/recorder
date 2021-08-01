@@ -5,21 +5,17 @@ const joi = require('joi')
 
 const schema = joi.object({
   sources: joi.array().items(joi.object({
-    type: joi.string().allow('RTSP').required(),
-    id: joi.string().required(),
-    ipAddress: joi.string().ip().required(),
-    authentication: joi.object({
-      user: joi.string().required(),
-      pass: joi.string().required()
-    })
-  })),
+    type: joi.string().allow('RTSP').required()
+  }).unknown(true)),
   logging: joi.object({
     level: joi.string().allow('trace', 'debug', 'info', 'warn', 'error', 'silent').default('warn'),
     ffmpeg: joi.string().allow('quiet', 'panic', 'fatal', 'error', 'warning', 'info', 'verbose', 'debug', 'trace').default('warning')
   }),
   output: joi.object({
     rootFolder: joi.string().required(),
-    retention: joi.string().isoDuration().default('P1D') // Default to 1 day
+    retention: joi.object({
+      type: joi.string().allow('simple').required()
+    }).unknown(true).required(true)
   }).required()
 }).required()
 
