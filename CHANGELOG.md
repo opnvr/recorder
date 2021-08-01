@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/TimBailey-pnk/nvrrecorder/compare/v0.1.1...v0.1.2) (2021-08-01)
+
+
+### Features
+
+* add husky and commitlint ([f9035a0](https://github.com/TimBailey-pnk/nvrrecorder/commit/f9035a0905bdff09fa14ffb8e2cb024419592f3e))
+
 ### 0.1.1 (2021-08-01)
 
 
