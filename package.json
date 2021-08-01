@@ -1,9 +1,10 @@
 {
   "name": "nvrrecorder",
-  "version": "1.0.0",
+  "version": "0.1.1",
   "main": "index.js",
   "scripts": {
     "standard": "standard --fix",
+    "release": "standard-version",
     "docker:build": "docker build -t ghcr.io/timbailey-pnk/nvrrecorder .",
     "docker:push": "docker push ghcr.io/timbailey-pnk/nvrrecorder"
   },
@@ -18,5 +19,8 @@
     "luxon": "1.25.0",
     "standard": "^16.0.3",
     "yaml": "^1.10.2"
+  },
+  "devDependencies": {
+    "standard-version": "^9.3.1"
   }
 }
