@@ -5,6 +5,7 @@
   "scripts": {
     "standard": "standard --fix",
     "release": "standard-version",
+    "prepare": "husky install",
     "docker:build": "docker build -t ghcr.io/timbailey-pnk/nvrrecorder .",
     "docker:push": "docker push ghcr.io/timbailey-pnk/nvrrecorder"
   },
@@ -21,6 +22,9 @@
     "yaml": "^1.10.2"
   },
   "devDependencies": {
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-conventional": "^13.1.0",
+    "husky": "^7.0.1",
     "standard-version": "^9.3.1"
   }
 }
