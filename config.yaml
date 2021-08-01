@@ -1,52 +1,52 @@
-cameras:
-  - RTSP:
-      id: Cam02
-      ipAddress: 192.168.1.202
-      authentication:
-        user: admin
-        pass: Milly Lola 810
-  - RTSP:
-      id: Cam03
-      ipAddress: 192.168.1.203
-      authentication:
-        user: admin
-        pass: Milly Lola 810
-  - RTSP:
-      id: Cam04
-      ipAddress: 192.168.1.204
-      authentication:
-        user: admin
-        pass: Milly Lola 810
-  - RTSP:
-      id: Cam05
-      ipAddress: 192.168.1.205
-      authentication:
-        user: admin
-        pass: Milly Lola 810
-  - RTSP:
-      id: Cam06
-      ipAddress: 192.168.1.206
-      authentication:
-        user: admin
-        pass: Milly Lola 810
-  - RTSP:
-      id: Cam07
-      ipAddress: 192.168.1.207
-      authentication:
-        user: admin
-        pass: Milly Lola 810
-  - RTSP:
-      id: Cam08
-      ipAddress: 192.168.1.208
-      authentication:
-        user: admin
-        pass: Milly Lola 810
-  - RTSP:
-      id: Cam09
-      ipAddress: 192.168.1.209
-      authentication:
-        user: admin
-        pass: Milly Lola 810
+sources:
+  - type: RTSP
+    id: Cam02
+    ipAddress: 192.168.1.202
+    authentication:
+      user: admin
+      pass: Milly Lola 810
+  - type: RTSP
+    id: Cam03
+    ipAddress: 192.168.1.203
+    authentication:
+      user: admin
+      pass: Milly Lola 810
+  - type: RTSP
+    id: Cam04
+    ipAddress: 192.168.1.204
+    authentication:
+      user: admin
+      pass: Milly Lola 810
+  - type: RTSP
+    id: Cam05
+    ipAddress: 192.168.1.205
+    authentication:
+      user: admin
+      pass: Milly Lola 810
+  - type: RTSP
+    id: Cam06
+    ipAddress: 192.168.1.206
+    authentication:
+      user: admin
+      pass: Milly Lola 810
+  - type: RTSP
+    id: Cam07
+    ipAddress: 192.168.1.207
+    authentication:
+      user: admin
+      pass: Milly Lola 810
+  - type: RTSP
+    id: Cam08
+    ipAddress: 192.168.1.208
+    authentication:
+      user: admin
+      pass: Milly Lola 810
+  - type: RTSP
+    id: Cam09
+    ipAddress: 192.168.1.209
+    authentication:
+      user: admin
+      pass: Milly Lola 810
 
 logging:
   level: debug

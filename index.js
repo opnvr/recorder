@@ -12,9 +12,16 @@ prefix.apply(log, {
 const config = require('./config')
 log.info('Create')
 
-const recorder = require('./recorder')
-config.cameras.forEach(camera => {
-  recorder(camera.RTSP).start()
+// Register source type handlers
+const sourceHandlers = new Map()
+sourceHandlers.set('RTSP', require('./rtsp'))
+
+config.sources.forEach(source => {
+  if (sourceHandlers.has(source.type)) {
+    sourceHandlers.get(source.type)(source).start()
+  } else {
+    throw new Error(`Unhandled source type ${source.type}`)
+  }
 })
 
 if (config.output.retention) {
