@@ -6,7 +6,7 @@ const { mkdir } = require('fs').promises
 
 const CREATEFOLDERSINTERVAL = 1000 * 60 * 30 // 30 mins
 
-const factory = ({ id, ipAddress }) => {
+const factory = ({ id, ipAddress, authentication }) => {
   const log = require('loglevel').getLogger('recorder-' + id)
   log.debug('Create')
 
@@ -30,16 +30,25 @@ const factory = ({ id, ipAddress }) => {
 
   async function start () {
     await folderCheck()
+
     setTimeout(() => folderCheck(), CREATEFOLDERSINTERVAL)
 
-    const command = ffmpeg(`rtsp://admin:Milly%20Lola%20810@${ipAddress}:554/Streaming/Channels/101`)
-      .noAudio()
+    const camUrl = new URL('rtsp://camera:554/Streaming/Channels/101')
+    camUrl.hostname = ipAddress
+    if (authentication) {
+      camUrl.username = authentication.user
+      camUrl.password = authentication.pass
+    }
+
+    const command = ffmpeg()
+      .addOption(`-loglevel ${config.logging.ffmpeg}`)
+      .input(camUrl.href)
+      .audioCodec('copy')
       .videoCodec('copy')
       .output(`${config.output.rootFolder}/${id}/%Y/%m/%d/recording_%Y-%m-%dT%H:%M:%S.mp4`)
       .outputFormat('segment')
       .outputOptions([
         '-strftime 1',
-        '-strftime_mkdir 1',
         '-segment_format_options movflags=+faststart+frag_keyframe',
         '-segment_time 00:01:00',
         '-segment_atclocktime 1',
