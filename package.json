@@ -1,15 +1,15 @@
 {
-  "name": "nvrrecorder",
-  "version": "0.1.4",
+  "name": "recorder",
+  "version": "0.1.0",
   "main": "index.js",
   "scripts": {
     "standard": "standard --fix",
     "release": "standard-version",
     "prepare": "husky install",
-    "docker:build": "docker build -t ghcr.io/timbailey-pnk/nvrrecorder .",
-    "docker:push": "docker push ghcr.io/timbailey-pnk/nvrrecorder"
+    "docker:build": "docker build -t ghcr.io/opnvr/recorder .",
+    "docker:push": "docker push ghcr.io/opnvr/recorder"
   },
-  "repository": "https://github.com/TimBailey-pnk/nvrrecorder",
+  "repository": "https://github.com/opnvr/recorder",
   "author": "Tim Bailey <tim.bailey@noknow.nz>",
   "license": "MIT",
   "dependencies": {

@@ -12,6 +12,5 @@ COPY . .
 RUN apk add --no-cache tzdata
 
 RUN mkdir -p /video
-RUN mkdir -p /config
 
 CMD [ "node", "index.js" ]
