@@ -3,7 +3,11 @@
 A nodejs application to consume your ipcamera video feeds and save to disk.
 
 ## About
+Previously I was using a Hikvision NVR, but this was limited to outputing the video grid to either the VGA or HDMI outputs on the back of the unit.  There was a special "Channel Zero" which could stream the video grid but it was very low resolution.  I had a need to show this video grid at multiple locations around my house.
 
+The sister project to this recorder, [viewer](https://github.com/opnvr/viewer), suits my needs by allowing the video grid to be displayed on a webbrowser.  Tested on Chromium, Chrome & Firefox on linux, this viewer is currently running on Raspberry PI 4's connected to 3 televisions ar required around the house.
+
+Now that the viewer has replaced the Hikvision nvr, I needed to also actually record the video, and as such this project was born.
 
 ## Features
 
