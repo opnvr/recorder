@@ -12,9 +12,9 @@ const schema = joi.object({
     ffmpeg: joi.string().allow('quiet', 'panic', 'fatal', 'error', 'warning', 'info', 'verbose', 'debug', 'trace').default('warning')
   }),
   output: joi.object({
-    rootFolder: joi.string().required(),
+    rootFolder: joi.string().default('/video'),
     retention: joi.object({
-      type: joi.string().allow('simple').required()
+      type: joi.string().allow('simple').default('simple')
     }).unknown(true).required(true)
   }).required()
 }).required()
