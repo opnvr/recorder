@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/opnvr/recorder/compare/v0.1.4...v1.1.0) (2021-08-03)
+
+
+### Features
+
+* move rtsp and simpleretention to have local joi config verification ([f1e4f05](https://github.com/opnvr/recorder/commit/f1e4f05f83cf22b08ce136907ce97dacb578d3ba))
+* pin dependencies ([1dfc1f8](https://github.com/opnvr/recorder/commit/1dfc1f8e1752ff3d1497b724b36c57873a993281))
+* remove config ([04c7027](https://github.com/opnvr/recorder/commit/04c7027b97c9b66265cdb49007344ee8cff6a97d))
+* rename Cameras config to sources and add handler ([b15e65e](https://github.com/opnvr/recorder/commit/b15e65ee40178355b17f2652f8ea2cda433a4278))
+* start to switch to opnvr ([19b68fa](https://github.com/opnvr/recorder/commit/19b68fa4b1bbcf257ba9b865f676038ac4964aef))
+
 ### [0.1.1](https://github.com/opnvr/recorder/compare/v0.1.4...v0.1.1) (2021-08-03)
 
 
