@@ -49,8 +49,6 @@ services:
 
 The following sections exist in the config.yaml file
 
-<br/>
-
 ### root level
 
 | Name                       | Default value      | Description                                                                 |
@@ -59,15 +57,11 @@ The following sections exist in the config.yaml file
 | logging                    | `NULL`             | Logging configuration                                                       |
 | output                     | `/video`           | Root folder that the recorded video will be stored                          |
 
-<br/>
-
 ### sources
 
 | Name                       | Default value      | Description                                                                 |
 | -------------------------- | ------------------ | --------------------------------------------------------------------------- |
 | sources.type               | None               | Type of video source, currently supported types are `RTSP`                  |
-
-<br/>
 
 ### sources[RTSP]
 
@@ -78,8 +72,6 @@ The following sections exist in the config.yaml file
 | sources.ipAddress          | None               | ip address of rtsp camera                                                   |
 | sources.authentication     | None               | Optional authentication configuration                                       |
 
-<br/>
-
 ### sources[RTSP].authentication
 
 | Name                          | Default value      | Description                                                                 |
@@ -88,25 +80,28 @@ The following sections exist in the config.yaml file
 | sources.authentication.user   | None               | Username                                                                    |
 | sources.authentication.pass   | None               | Password                                                                    |
 
+### logging
 
-| FULL_NAME                  | Alexey Potapov     | Your full name                                                              |
-| OPEN_SOURCE_LICENSE        | MIT license        | Full OSS license name                                                       |
-| modern_header              | y                  | Use HTML to prettify your header                                            |
-| table_in_about             | n                  | Use table to wrap around About section                                      |
-| include_logo               | y                  | Include Logo section. Could only be used when `modern_header == y`          |
-| include_badges             | y                  | Include section for badges                                                  |
-| include_toc                | y                  | Include Table of Contents                                                   |
-| include_screenshots        | y                  | Include Screenshots section                                                 |
-| include_project_assistance | y                  | Include Project assistance section                                          |
-| include_authors            | y                  | Include Authors & contributors section                                      |
-| include_security           | y                  | Include Security section and SECURITY.md file                               |
-| include_acknowledgements   | y                  | Include Acknowledgements section                                            |
-| include_code_of_conduct    | y                  | Include CODE_OF_CONDUCT.md file                                             |
-| include_workflows          | y                  | Include .github/workflows directory                                         |
-| use_codeql                 | y                  | Use [CodeQL](https://securitylab.github.com/tools/codeql/)                  |
-| use_conventional_commits   | y                  | Add [Conventional Commits](https://www.conventionalcommits.org) notice      |
-| use_github_discussions     | n                  | Use [GitHub Discussions](https://docs.github.com/en/discussions/quickstart) |
-### Example config.yaml showing defaults
+| Name                       | Default value      | Description                                                                 |
+| -------------------------- | ------------------ | --------------------------------------------------------------------------- |
+| logging.level              | `warn`             | logging level                                                               |
+| logging.ffpmeg             | `warning`          | logging level for ffmpeg                                                    |
+
+### output
+
+| Name                       | Default value      | Description                                                                 |
+| -------------------------- | ------------------ | --------------------------------------------------------------------------- |
+| output.rootFolder          | `/video`           | Root folder to save video files                                             |
+| output.retention           |                    | Retention pluging                                                           |
+
+### output.retention[simple]
+
+| Name                       | Default value      | Description                                                                 |
+| -------------------------- | ------------------ | --------------------------------------------------------------------------- |
+| output.retention.type      | `simple`           | Simple Retention that removes video files older than duration               |
+| output.retention.duration  | `P1D` 1 day        | Retention duration in ISO 8601 duration format.                             |
+
+## Example config.yaml showing defaults
 
 ```yaml
 sources:
