@@ -10,21 +10,21 @@
     "docker:push": "docker push ghcr.io/opnvr/recorder"
   },
   "repository": "https://github.com/opnvr/recorder",
-  "author": "Tim Bailey <tim.bailey@noknow.nz>",
+  "author": "Tim Bailey <tim.bailey@bailey9.com>",
   "license": "MIT",
   "dependencies": {
     "fluent-ffmpeg": "2.1.2",
-    "joi": "^17.4.1",
-    "loglevel": "^1.7.1",
-    "loglevel-plugin-prefix": "^0.8.4",
+    "joi": "17.4.1",
+    "loglevel": "1.7.1",
+    "loglevel-plugin-prefix": "0.8.4",
     "luxon": "1.25.0",
-    "standard": "^16.0.3",
-    "yaml": "^1.10.2"
+    "standard": "16.0.3",
+    "yaml": "1.10.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "^13.1.0",
-    "@commitlint/config-conventional": "^13.1.0",
-    "husky": "^7.0.1",
-    "standard-version": "^9.3.1"
+    "@commitlint/cli": "13.1.0",
+    "@commitlint/config-conventional": "13.1.0",
+    "husky": "7.0.1",
+    "standard-version": "9.3.1"
   }
 }
