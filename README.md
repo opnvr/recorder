@@ -2,6 +2,31 @@
 
 A nodejs application to consume your ipcamera video feeds and save to disk.
 
+<!-- TABLE OF CONTENTS -->
+<details open="open">
+  <summary>Table of Contents</summary>
+  <ol>
+    <li><a href="#about">About</a></li>
+    <li><a href="#features">Features</a></li>
+    <li>
+      <a href="#installation">Installation</a>
+      <ul>
+        <li><a href="#docker-compose">Docker Compose</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#configuration">Configuration</a>
+      <ul>
+        <li><a href="#example">Example</a></li>
+      </ul>
+    </li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgements">Acknowledgements</a></li>
+  </ol>
+</details>
+
 ## About
 Previously I was using a Hikvision NVR, but this was limited to outputing the video grid to either the VGA or HDMI outputs on the back of the unit.  There was a special "Channel Zero" which could stream the video grid but it was very low resolution.  I had a need to show this video grid at multiple locations around my house.
 
@@ -53,7 +78,7 @@ services:
 
 The following sections exist in the config.yaml file
 
-### root level
+#### root level
 
 | Name                       | Default value      | Description                                                                 |
 | -------------------------- | ------------------ | --------------------------------------------------------------------------- |
@@ -61,13 +86,13 @@ The following sections exist in the config.yaml file
 | logging                    | `NULL`             | Logging configuration                                                       |
 | output                     | `/video`           | Root folder that the recorded video will be stored                          |
 
-### sources
+#### sources
 
 | Name                       | Default value      | Description                                                                 |
 | -------------------------- | ------------------ | --------------------------------------------------------------------------- |
 | sources.type               | None               | Type of video source, currently supported types are `RTSP`                  |
 
-### sources[RTSP]
+#### sources[RTSP]
 
 | Name                       | Default value      | Description                                                                 |
 | -------------------------- | ------------------ | --------------------------------------------------------------------------- |
@@ -76,7 +101,7 @@ The following sections exist in the config.yaml file
 | sources.ipAddress          | None               | ip address of rtsp camera                                                   |
 | sources.authentication     | None               | Optional authentication configuration                                       |
 
-### sources[RTSP].authentication
+#### sources[RTSP].authentication
 
 | Name                          | Default value      | Description                                                                 |
 | ----------------------------- | ------------------ | --------------------------------------------------------------------------- |
@@ -84,28 +109,29 @@ The following sections exist in the config.yaml file
 | sources.authentication.user   | None               | Username                                                                    |
 | sources.authentication.pass   | None               | Password                                                                    |
 
-### logging
+#### logging
 
 | Name                       | Default value      | Description                                                                 |
 | -------------------------- | ------------------ | --------------------------------------------------------------------------- |
 | logging.level              | `warn`             | logging level                                                               |
 | logging.ffpmeg             | `warning`          | logging level for ffmpeg                                                    |
 
-### output
+#### output
 
 | Name                       | Default value      | Description                                                                 |
 | -------------------------- | ------------------ | --------------------------------------------------------------------------- |
 | output.rootFolder          | `/video`           | Root folder to save video files                                             |
 | output.retention           |                    | Retention pluging                                                           |
 
-### output.retention[simple]
+#### output.retention[simple]
 
 | Name                       | Default value      | Description                                                                 |
 | -------------------------- | ------------------ | --------------------------------------------------------------------------- |
 | output.retention.type      | `simple`           | Simple Retention that removes video files older than duration               |
 | output.retention.duration  | `P1D` 1 day        | Retention duration in ISO 8601 duration format.                             |
 
-## Example config.yaml showing defaults
+### Example 
+config.yaml showing defaults
 
 ```yaml
 sources:
@@ -146,4 +172,11 @@ $ node index.js
 
 ## License
 Copyright (c) 2021 Tim Bailey  
-Licensed under the MIT license.
+Licensed under the MIT License. See `LICENSE` for more information.
+
+## Contact
+Tim Bailey - timb@bailey9.com
+Project Link: [https://github.com/opnvr/recorder](https://github.com/opnvr/recorder)
+
+## Acknowledgements
+* Inspired by the proof of concept https://github.com/eventials/poc-mp4-websocket
