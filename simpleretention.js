@@ -6,8 +6,8 @@ const { DateTime, Duration } = require('luxon')
 const path = require('path')
 const joi = require('joi')
 
-const FILEAGEINTERVAL = 1000 * 60 * 1
-const EMPTYFOLDERINTERVAL = 1000 * 60 * 350
+const FILEAGEINTERVAL = 1000 * 60 * 10
+const EMPTYFOLDERINTERVAL = 1000 * 60 * 30
 
 const schema = joi.object({
   type: joi.string(),
@@ -73,6 +73,13 @@ const factory = (config, itemConfig) => {
     if (!fileStats.isDirectory()) {
       return
     }
+
+    // only delete folders that are at least 12 hours old to allow for folders created for tomorrows video files
+    const folderAge = DateTime.local().diff(DateTime.fromMillis(fileStats.birthtimeMs)).as('hours')
+    if (folderAge < 12) {
+      return
+    }
+
     let fileNames = await readdir(directory)
     if (fileNames.length > 0) {
       const recursiveRemovalPromises = fileNames.map(
@@ -87,7 +94,7 @@ const factory = (config, itemConfig) => {
 
     if (fileNames.length === 0) {
       if (directory !== config.output.rootFolder) {
-        log.debug('Removing empty folder ', directory)
+        log.debug('Removing empty folder ', { directory, folderAge })
         await rmdir(directory)
       }
     }
@@ -95,7 +102,7 @@ const factory = (config, itemConfig) => {
 
   async function doRemoveEmptyFolders () {
     log.debug('removeEmptyFolders')
-    await removeEmptyDirectories(itemConfig.output.rootFolder)
+    await removeEmptyDirectories(config.output.rootFolder)
 
     setTimeout(doRemoveEmptyFolders, EMPTYFOLDERINTERVAL)
   }
