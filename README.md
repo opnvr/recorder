@@ -23,7 +23,6 @@ A nodejs application to consume your ipcamera video feeds and save to disk.
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
 </details>
 
@@ -178,5 +177,3 @@ Licensed under the MIT License. See `LICENSE` for more information.
 Tim Bailey - timb@bailey9.com
 Project Link: [https://github.com/opnvr/recorder](https://github.com/opnvr/recorder)
 
-## Acknowledgements
-* Inspired by the proof of concept https://github.com/eventials/poc-mp4-websocket
