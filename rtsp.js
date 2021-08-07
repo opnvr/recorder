@@ -4,12 +4,12 @@ const { DateTime } = require('luxon')
 const { mkdir } = require('fs').promises
 const joi = require('joi')
 
-const CREATEFOLDERSINTERVAL = 1000 * 60 * 30 // 30 mins
+const CREATEFOLDERSINTERVAL = 1000 * 60 * 1 //30 // 30 mins
 
 const schema = joi.object({
   type: joi.string(),
   id: joi.string().required(),
-  ipAddress: joi.string().ip().required(),
+  uri: joi.string().uri().required(),
   authentication: joi.object({
     enable: joi.boolean().default(true),
     user: joi.string().required(),
@@ -35,7 +35,7 @@ const factory = (config, itemConfig) => {
   async function folderCheck () {
     let date = DateTime.local()
     let baseFolder = `${config.output.rootFolder}/${rtspConfig.id}/${date.toFormat('yyyy/MM/dd')}`
-    console.log('ensure folder', baseFolder)
+    console.log('ensure folder', baseFolder, date.toISO())
     await mkdir(baseFolder, { recursive: true })
 
     if (date.hour >= 22) {
@@ -48,15 +48,15 @@ const factory = (config, itemConfig) => {
 
   async function start () {
     await folderCheck()
-
     setTimeout(() => folderCheck(), CREATEFOLDERSINTERVAL)
 
-    const camUrl = new URL('rtsp://camera:554/Streaming/Channels/101')
-    camUrl.hostname = rtspConfig.ipAddress
+    const camUrl = new URL('/Streaming/Channels/101', rtspConfig.uri)
     if (rtspConfig.authentication && rtspConfig.authentication.enable) {
       camUrl.username = rtspConfig.authentication.user
       camUrl.password = rtspConfig.authentication.pass
     }
+
+    log.debug('Camera Uri', camUrl.href)
 
     const command = ffmpeg()
       .addOption(`-loglevel ${config.logging.ffmpeg}`)
