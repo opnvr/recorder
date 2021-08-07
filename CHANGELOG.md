@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/opnvr/recorder/compare/v1.2.0...v1.3.0) (2021-08-07)
+
+
+### Features
+
+* fix incorrect timezone on logger timestamp ([90d82c4](https://github.com/opnvr/recorder/commit/90d82c423c266a81563339e4dcf50d222aaaf823))
+* improve readme ([84c1437](https://github.com/opnvr/recorder/commit/84c1437d0f86a82597366ce76c39de208f9bd5a8))
+* move config to uri instead of ipAddress ([c1a6019](https://github.com/opnvr/recorder/commit/c1a601957c2801660769636edb8e8dff4c7dfb56))
+* remove acknowledgments from this project, should be in viewer ([7ed0616](https://github.com/opnvr/recorder/commit/7ed06163692f784807b914d0b5e3125316891eb6))
+
 ## [1.2.0](https://github.com/opnvr/recorder/compare/v0.1.4...v1.2.0) (2021-08-05)
 
 
