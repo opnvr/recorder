@@ -1,3 +1,5 @@
+const { DateTime } = require('luxon')
+
 const log = require('loglevel')
 log.setDefaultLevel('warn')
 
@@ -8,7 +10,7 @@ prefix.apply(log, {
     return `${timestamp} ${level.toUpperCase()} ${name}:`
   },
   timestampFormatter (date) {
-    return date.toISOString()
+    return DateTime.fromJSDate(date).toISO({ includeOffset: false })
   }
 })
 
