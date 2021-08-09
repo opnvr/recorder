@@ -6,8 +6,8 @@ const { DateTime, Duration } = require('luxon')
 const path = require('path')
 const joi = require('joi')
 
-const FILEAGEINTERVAL = 1000 * 60 * 10
-const EMPTYFOLDERINTERVAL = 1000 * 60 * 30
+const FILEAGEINTERVAL = 1000 * 60 * 30 // 30 mins
+const EMPTYFOLDERINTERVAL = 1000 * 60 * 60 * 6 // 6 hours
 
 const schema = joi.object({
   type: joi.string(),
@@ -47,19 +47,31 @@ const factory = (config, itemConfig) => {
   async function fileCheck () {
     try {
       const files = await getFiles(config.output.rootFolder)
+      const summary = {
+        total: files.length,
+        newest: Number.MAX_SAFE_INTEGER,
+        oldest: Number.MIN_SAFE_INTEGER,
+        deleted: 0
+      }
       log.debug(`Found ${files.length} videos to check`)
 
       files.forEach(path => {
         const datePart = basename(path, extname(path)).substring(10)
         log.debug('datepart', basename(path, extname(path)), datePart)
+
         const age = DateTime.local().diff(DateTime.fromISO(datePart)).as('seconds')
+        summary.newest = Math.min(summary.newest, age)
+        summary.oldest = Math.max(summary.oldest, age)
 
         log.debug('age', age, maxAge)
         if (age > maxAge) {
           log.debug('deleting file over maxAge ', datePart, age)
+          summary.deleted = summary.deleted + 1
           unlinkSync(path)
         }
       })
+
+      log.info('fileCheck summary', summary)
     } catch (err) {
       log.error('Failed in fileCheck', err)
     }
@@ -67,7 +79,7 @@ const factory = (config, itemConfig) => {
     setTimeout(fileCheck, FILEAGEINTERVAL)
   }
 
-  async function removeEmptyDirectories (directory) {
+  async function removeEmptyDirectories (directory, summary) {
     // lstat does not follow symlinks (in contrast to stat)
     const fileStats = await lstat(directory)
     if (!fileStats.isDirectory()) {
@@ -76,6 +88,10 @@ const factory = (config, itemConfig) => {
 
     // only delete folders that are at least 12 hours old to allow for folders created for tomorrows video files
     const folderAge = DateTime.local().diff(DateTime.fromMillis(fileStats.birthtimeMs)).as('hours')
+    summary.total = summary.total + 1
+    summary.newest = Math.min(summary.newest, folderAge)
+    summary.oldest = Math.max(summary.oldest, folderAge)
+
     if (folderAge < 12) {
       return
     }
@@ -83,7 +99,7 @@ const factory = (config, itemConfig) => {
     let fileNames = await readdir(directory)
     if (fileNames.length > 0) {
       const recursiveRemovalPromises = fileNames.map(
-        (fileName) => removeEmptyDirectories(path.join(directory, fileName))
+        (fileName) => removeEmptyDirectories(path.join(directory, fileName), summary)
       )
       await Promise.all(recursiveRemovalPromises)
 
@@ -95,6 +111,7 @@ const factory = (config, itemConfig) => {
     if (fileNames.length === 0) {
       if (directory !== config.output.rootFolder) {
         log.debug('Removing empty folder ', { directory, folderAge })
+        summary.deleted = summary.deleted + 1
         await rmdir(directory)
       }
     }
@@ -102,7 +119,15 @@ const factory = (config, itemConfig) => {
 
   async function doRemoveEmptyFolders () {
     log.debug('removeEmptyFolders')
-    await removeEmptyDirectories(config.output.rootFolder)
+
+    const summary = {
+      total: 0,
+      newest: Number.MAX_SAFE_INTEGER,
+      oldest: Number.MIN_SAFE_INTEGER,
+      deleted: 0
+    }
+    await removeEmptyDirectories(config.output.rootFolder, summary)
+    log.info('removeEmptyDirectories summary', summary)
 
     setTimeout(doRemoveEmptyFolders, EMPTYFOLDERINTERVAL)
   }

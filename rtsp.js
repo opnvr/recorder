@@ -4,7 +4,7 @@ const { DateTime } = require('luxon')
 const { mkdir } = require('fs').promises
 const joi = require('joi')
 
-const CREATEFOLDERSINTERVAL = 1000 * 60 * 1 //30 // 30 mins
+const CREATEFOLDERSINTERVAL = 1000 * 60 * 30 // 30 mins
 
 const schema = joi.object({
   type: joi.string(),
@@ -35,13 +35,13 @@ const factory = (config, itemConfig) => {
   async function folderCheck () {
     let date = DateTime.local()
     let baseFolder = `${config.output.rootFolder}/${rtspConfig.id}/${date.toFormat('yyyy/MM/dd')}`
-    console.log('ensure folder', baseFolder, date.toISO())
+    log.info('ensure folder', baseFolder, date.toISO())
     await mkdir(baseFolder, { recursive: true })
 
     if (date.hour >= 22) {
       date = date.plus({ day: 1 })
       baseFolder = `${config.output.rootFolder}/${rtspConfig.id}/${date.toFormat('yyyy/MM/dd')}`
-      console.log('ensure folder (10pm)', baseFolder)
+      log.info('ensure folder (10pm)', baseFolder)
       await mkdir(baseFolder, { recursive: true })
     }
   }
