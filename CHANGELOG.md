@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/opnvr/recorder/compare/v1.3.0...v1.4.0) (2021-08-09)
+
+
+### Features
+
+* add info level logging to help diagnose missing folder ffmpeg crashes ([ba9a16d](https://github.com/opnvr/recorder/commit/ba9a16de710ee565b4841372990506bec8e8f83b))
+* update to latest dependencies ([d82d29c](https://github.com/opnvr/recorder/commit/d82d29cd0977c53571c528564f075f1d47ac3e5a))
+
 ## [1.3.0](https://github.com/opnvr/recorder/compare/v1.2.0...v1.3.0) (2021-08-07)
 
 
