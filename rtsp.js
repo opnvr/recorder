@@ -35,7 +35,7 @@ const factory = (config, itemConfig) => {
   async function folderCheck () {
     let date = DateTime.local()
     let baseFolder = `${config.output.rootFolder}/${rtspConfig.id}/${date.toFormat('yyyy/MM/dd')}`
-    log.info('ensure folder', baseFolder, date.toISO())
+    log.info('ensure folder', baseFolder)
     await mkdir(baseFolder, { recursive: true })
 
     if (date.hour >= 22) {
@@ -44,11 +44,12 @@ const factory = (config, itemConfig) => {
       log.info('ensure folder (10pm)', baseFolder)
       await mkdir(baseFolder, { recursive: true })
     }
+
+    setTimeout(() => folderCheck(), CREATEFOLDERSINTERVAL)
   }
 
   async function start () {
     await folderCheck()
-    setTimeout(() => folderCheck(), CREATEFOLDERSINTERVAL)
 
     const camUrl = new URL('/Streaming/Channels/101', rtspConfig.uri)
     if (rtspConfig.authentication && rtspConfig.authentication.enable) {
