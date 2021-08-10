@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.1](https://github.com/opnvr/recorder/compare/v1.4.0...v1.4.1) (2021-08-10)
+
+
+### Bug Fixes
+
+* issue with foldercheck not being rescheduled ([6fa0b85](https://github.com/opnvr/recorder/commit/6fa0b855ac59acdf9335a7122285c1242f4398d2))
+
 ## [1.4.0](https://github.com/opnvr/recorder/compare/v1.3.0...v1.4.0) (2021-08-09)
 
 
