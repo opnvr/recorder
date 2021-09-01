@@ -153,6 +153,17 @@ output:
     duration: P5D
 ```
 
+### Known working
+The recorder has been tested on the following OS
+Ubuntu 21.x 
+
+The following cameras are confirmed working as rtsp sources, most cameras will support RTSP feeds
+* Hikvision DS-2CD2343G0-I V5.6.2 build 190701
+* Hikvision DS-2CD2142FWD-I V5.5.53 build 180730
+* Hikvision DS-2CD2142FWD-IS V5.5.82 build 190220
+* Hikvision DS-2CD2342WD-I V5.4.5 build 170124
+* Hikvision DS-2CD2365G1-I V5.6.2 build 190701
+
 ## Contributing
 
 #### Bug Reports & Feature Requests
