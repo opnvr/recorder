@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/opnvr/recorder/compare/v1.4.1...v1.5.0) (2022-08-27)
+
+
+### Features
+
+* readme.md improvements ([a8997f3](https://github.com/opnvr/recorder/commit/a8997f3079785029e5e73b68775f21e9990885b6))
+* use full uri ([d021a47](https://github.com/opnvr/recorder/commit/d021a47cc77844a138a969847cc50ee887911502))
+
 ### [1.4.1](https://github.com/opnvr/recorder/compare/v1.4.0...v1.4.1) (2021-08-10)
 
 
