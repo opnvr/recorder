@@ -64,7 +64,7 @@ const factory = (config, itemConfig) => {
       .input(camUrl.href)
       .noAudio()
       .videoCodec('copy')
-      .output(`${config.output.rootFolder}/${rtspConfig.id}/%Y/%m/%d/recording_%Y-%m-%dT%H:%M:%S.mp4`)
+      .output(`${config.output.rootFolder}/${rtspConfig.id}/${config.fileName}`)
       .outputFormat('segment')
       .outputOptions([
         '-strftime 1',

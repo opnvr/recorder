@@ -11,6 +11,7 @@ const schema = joi.object({
     level: joi.string().allow('trace', 'debug', 'info', 'warn', 'error', 'silent').default('warn'),
     ffmpeg: joi.string().allow('quiet', 'panic', 'fatal', 'error', 'warning', 'info', 'verbose', 'debug', 'trace').default('warning')
   }),
+  fileName: joi.string().default('%Y/%m/%d/recording_%Y-%m-%dT%H:%M:%S.mp4'),
   output: joi.object({
     rootFolder: joi.string().default('/video'),
     retention: joi.object({
