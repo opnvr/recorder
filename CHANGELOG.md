@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/opnvr/recorder/compare/v1.5.0...v1.6.0) (2022-08-27)
+
+
+### Features
+
+* remove audio ([74260f1](https://github.com/opnvr/recorder/commit/74260f177aa15d1010bea76556eb54449931704f))
+
 ## [1.5.0](https://github.com/opnvr/recorder/compare/v1.4.1...v1.5.0) (2022-08-27)
 
 
