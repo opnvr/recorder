@@ -62,7 +62,7 @@ const factory = (config, itemConfig) => {
     const command = ffmpeg()
       .addOption(`-loglevel ${config.logging.ffmpeg}`)
       .input(camUrl.href)
-      .audioCodec('copy')
+      .noAudio()
       .videoCodec('copy')
       .output(`${config.output.rootFolder}/${rtspConfig.id}/%Y/%m/%d/recording_%Y-%m-%dT%H:%M:%S.mp4`)
       .outputFormat('segment')
