@@ -51,7 +51,7 @@ const factory = (config, itemConfig) => {
   async function start () {
     await folderCheck()
 
-    const camUrl = new URL('/Streaming/Channels/101', rtspConfig.uri)
+    const camUrl = new URL(rtspConfig.uri)
     if (rtspConfig.authentication && rtspConfig.authentication.enable) {
       camUrl.username = rtspConfig.authentication.user
       camUrl.password = rtspConfig.authentication.pass
