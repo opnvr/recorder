@@ -17,7 +17,7 @@
     "joi": "17.4.2",
     "loglevel": "1.7.1",
     "loglevel-plugin-prefix": "0.8.4",
-    "luxon": "2.0.1",
+    "luxon": "2.5.2",
     "standard": "16.0.3",
     "yaml": "1.10.2"
   },
